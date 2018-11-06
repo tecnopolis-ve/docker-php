@@ -1,7 +1,8 @@
 FROM php:7-apache
 
 RUN echo "INICIANDO"
-RUN apt-get update && apt-get install -y --install-recommends \
+RUN apt-get update && \
+    apt-get install -y --install-recommends \
     libfreetype6-dev \
     libpng-dev \
     libjpeg-dev \
