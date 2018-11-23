@@ -12,7 +12,7 @@ php5:
   #  - ./etc/hosts:/etc/hosts
     - ./etc/logs:/var/log
   ports:
-    - "80:80"
+    - "8080:80"
   links:
     - mysql5
   #  - smtpsrv
@@ -31,7 +31,7 @@ php7:
   #  - ./etc/hosts:/etc/hosts
     - ./etc/logs:/var/log
   ports:
-    - "8080:80"
+    - "80:80"
   links:
     - mysql5
   #  - smtpsrv
