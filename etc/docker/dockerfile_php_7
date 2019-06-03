@@ -10,12 +10,18 @@ RUN apt-get update && \
     pdftk \
     zip \
     zlib1g-dev \
-    libicu-dev
+    libicu-dev \
+    libzip-dev
     
+RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-configure gd \
+	--enable-gd-native-ttf \
+	--with-freetype-dir=/usr/include/freetype2 \
+	--with-png-dir=/usr/include \
+	--with-jpeg-dir=/usr/include
 RUN docker-php-ext-install gd \
     intl
-RUN docker-php-ext-install pdo pdo_mysql
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure zip --with-zlib-dir=/usr
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install mysqli
 RUN a2enmod rewrite
