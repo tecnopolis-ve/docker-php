@@ -7,7 +7,6 @@ RUN apt-get update && \
     libpng-dev \
     libjpeg-dev \
     libpq-dev \
-    pdftk \
     zip \
     zlib1g-dev \
     libicu-dev \
@@ -15,7 +14,6 @@ RUN apt-get update && \
     
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-configure gd \
-	--enable-gd-native-ttf \
 	--with-freetype-dir=/usr/include/freetype2 \
 	--with-png-dir=/usr/include \
 	--with-jpeg-dir=/usr/include
