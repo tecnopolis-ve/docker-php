@@ -21,6 +21,7 @@ RUN docker-php-ext-install gd \
     intl
 RUN docker-php-ext-configure zip --with-zlib-dir=/usr
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install calendar
 RUN docker-php-ext-install mysqli
 RUN a2enmod rewrite
 RUN service apache2 restart
