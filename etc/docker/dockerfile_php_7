@@ -1,6 +1,5 @@
 FROM php:7.2-apache
 
-RUN echo "INICIANDO"
 RUN apt-get update && \
     apt-get install -y --install-recommends \
     libfreetype6-dev \
@@ -12,16 +11,12 @@ RUN apt-get update && \
     libicu-dev \
     libzip-dev
     
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install gd intl pdo pdo_mysql zip calendar mysqli
 RUN docker-php-ext-configure gd \
 	--with-freetype-dir=/usr/include/freetype2 \
 	--with-png-dir=/usr/include \
-	--with-jpeg-dir=/usr/include
-RUN docker-php-ext-install gd \
-    intl
-RUN docker-php-ext-configure zip --with-zlib-dir=/usr
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install calendar
-RUN docker-php-ext-install mysqli
+	--with-jpeg-dir=/usr/include \
+	&& docker-php-ext-configure zip --with-zlib-dir=/usr
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN a2enmod rewrite
 RUN service apache2 restart
