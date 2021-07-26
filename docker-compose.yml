@@ -3,20 +3,18 @@ php7:
   restart: always
   container_name: php7
   dockerfile: ./etc/docker/dockerfile_php_7
-  #dockerfile: ./etc/docker/dockerfile_php_5
   volumes:
     - ./sites:/var/www/html
     - ./etc/php:/usr/local/etc/php
     - ./etc/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
     - ./etc/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
     - ./etc/php/php-mail.conf:/usr/local/etc/php/conf.d/mail.ini
-  #  - ./etc/hosts:/etc/hosts
+    - ./etc/php/php.ini:/usr/local/etc/php/php.ini
     - ./etc/logs:/var/log
   ports:
     - "80:80"
   links:
     - mysql5
-  #  - smtpsrv
 
 mysql5:
   container_name: mysql
