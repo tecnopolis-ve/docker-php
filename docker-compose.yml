@@ -18,7 +18,7 @@ php7:
 
 mysql5:
   container_name: mysql
-  image: mariadb
+  image: mysql:5.7
   restart: always
   ports:
     - "3306:3306"
