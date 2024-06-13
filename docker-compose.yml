@@ -1,32 +1,35 @@
-php7:
-  build: .
-  restart: always
-  container_name: php7
-  dockerfile: ./etc/docker/dockerfile_php_7
-  volumes:
-    - ./sites:/var/www/html
-    - ./etc/php:/usr/local/etc/php
-    - ./etc/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
-    - ./etc/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
-    - ./etc/php/php-mail.conf:/usr/local/etc/php/conf.d/mail.ini
-    - ./etc/php/php.ini:/usr/local/etc/php/php.ini
-    - ./etc/logs:/var/log
-  ports:
-    - "80:80"
-  links:
-    - mysql5
+version: '2'
 
-mysql5:
-  container_name: mysql
-  image: mysql:5.7
-  restart: always
-  ports:
-    - "3306:3306"
-  environment:
-    - MYSQL_ROOT_PASSWORD=000000
-    - MYSQL_DATABASE=bd_base
-  volumes: 
-    - ./etc/mysql:/docker-entrypoint-initdb.d
-    - ./etc/mysql/my.cnf:/etc/mysql/my.cnf
-    - ./etc/mysql/data:/var/lib/mysql-files
+services:
+  php7:
+    build:
+      context: .
+      dockerfile: ./etc/docker/dockerfile_php_7
+    restart: always
+    container_name: php7
+    volumes:
+      - ./sites:/var/www/html
+      - ./etc/php:/usr/local/etc/php
+      - ./etc/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
+      - ./etc/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
+      - ./etc/php/php-mail.conf:/usr/local/etc/php/conf.d/mail.ini
+      - ./etc/php/php.ini:/usr/local/etc/php/php.ini
+      - ./etc/logs:/var/log
+    ports:
+      - "80:80"
+    links:
+      - mysql57
 
+  mysql57:
+    container_name: mysql57
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=000000
+      - MYSQL_DATABASE=bd_base
+    volumes: 
+      - ./etc/mysql:/docker-entrypoint-initdb.d
+      - ./etc/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./etc/mysql/data:/var/lib/mysql-files
